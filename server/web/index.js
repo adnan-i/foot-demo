@@ -26,6 +26,24 @@ exports.register = function (server, options, next) {
         handler: (req, reply) => reply.view('index')
     });
 
+    server.ext('onPostHandler', (req, reply) => {
+
+        try {
+            const res = req.response;
+            const isNotFound = res.output && res.output.statusCode === 404;
+            const isGet = req.method === 'get';
+            const isDistOrApi = ((req.path.indexOf('/api') === 0) || (req.path.indexOf('/dist') === 0));
+            if (res.isBoom && isGet && !isDistOrApi && isNotFound) {
+                return reply.view('index');
+            }
+            return reply.continue();
+        } catch (e) {
+            console.log(e);
+            return reply.continue();
+        }
+
+    });
+
 
     next();
 };

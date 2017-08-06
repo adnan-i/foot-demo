@@ -3,12 +3,20 @@
  */
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
-import routes from './clients.routes.js'
-import ClientService from './client.service';
 import ngResource from 'angular-resource';
 import 'ng-file-upload/dist/ng-file-upload-all';
 
-export default angular.module('app.clients', [uiRouter, ngResource, 'ngFileUpload'])
-.config(routes)
-.service('ClientService', ClientService)
-.name;
+import ClientRoutes from './clients.routes.js'
+import ClientService from './client.service';
+
+const module = angular.module('fh.clients', [
+    uiRouter,
+    ngResource,
+    'ngFileUpload'
+]);
+
+module
+.config(ClientRoutes)
+.service('ClientService', ClientService);
+
+export default module.name;

@@ -31,7 +31,7 @@
       "warn",
       120
     ],
-    "newline-per-chained-call": "error",
+    "newline-per-chained-call": "off",
     "no-multiple-empty-lines": [
       "error",
       {

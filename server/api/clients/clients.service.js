@@ -6,6 +6,22 @@ const fs = Promise.promisifyAll(require('fs'));
 const _ = require('lodash');
 const Config = require('../../../config');
 const dataPath = Config.get('/dataPath');
+const Joi = require('joi');
+const Boom = require('boom');
+
+const clientsSchema = Joi.array().items(Joi.object().keys({
+    id: Joi.number().integer().required(),
+    firstName: Joi.string(),
+    lastName: Joi.string(),
+    dob: Joi.string().regex(/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/),
+    height: Joi.number().integer()
+    .min(1)
+    .max(500),
+    weight: Joi.number().integer()
+    .min(1)
+    .max(500),
+    gender: Joi.string().valid(['F', 'M'])
+}));
 
 function getContent() {
     return Promise.resolve()
@@ -18,8 +34,14 @@ function getContent() {
 function storeContent(content) {
     return Promise.resolve()
     .then(() => {
+        const joiValidationResult = Joi.validate(content, clientsSchema);
+        if (joiValidationResult.error) {
+            throw Boom.badRequest(joiValidationResult.error, content);
+        }
+
         const json = JSON.stringify(content);
         fs.writeFileSync(dataPath, json, 'utf8');
+        return content.length;
     });
 
 }
@@ -52,6 +74,11 @@ module.exports = class ClientsService {
 
             return storeContent(content);
         });
+
+    }
+
+    static import(data) {
+        return storeContent(data);
 
     }
 

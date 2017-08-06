@@ -8,8 +8,9 @@
 
       <label class="field prepend-icon file file-fw">
 
-        <input type="file" class="form-control" name="file" ng-model="$ctrl.data.file"
-               ngf-select accept="text/*" ngf-max-size="1MB" ngf-model-invalid="$ctrl.data.error">
+        <input type="file" name="file" ng-model="$ctrl.data.file"
+               ngf-select ngf-accept="'text/*,application/json,.txt'" ngf-max-size="1MB"
+               required>
 
         <ng-messages for="$ctrl.form.file.$error">
           <ng-message when="required">You must select a file first</ng-message>
@@ -22,7 +23,7 @@
     </div>
 
     <div class="row">
-      <button class="btn btn-primary">Import</button>
+      <button class="btn btn-primary">Submit</button>
     </div>
 
   </form>

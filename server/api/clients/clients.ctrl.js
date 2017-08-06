@@ -1,7 +1,7 @@
 /**
  * Created by Adnan Ibrišimbegović on 05/08/2017.
  */
-const ClientsService  = require('./clients.service');
+const ClientsService = require('./clients.service');
 const Boom = require('Boom');
 
 module.exports = class ClientsController {
@@ -21,8 +21,17 @@ module.exports = class ClientsController {
         .then(() => reply())
         .catch((err) => {
             reply(err.isBoom ? err : Boom.boomify(err));
-        })
+        });
 
+    }
+
+    static import(req, reply) {
+
+        return ClientsService.import(req.payload.file)
+        .then((numberImported) => reply({numberImported}))
+        .catch((err) => {
+            reply(err.isBoom ? err : Boom.boomify(err));
+        });
     }
 
 };
