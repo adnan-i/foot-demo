@@ -19,6 +19,13 @@ exports.register = function (server, options, next) {
         }
     });
 
+    // Catch-all route
+    server.route({
+        method: '*',
+        path: '/{p*}',
+        handler: (req, reply) => reply.view('index')
+    });
+
 
     next();
 };

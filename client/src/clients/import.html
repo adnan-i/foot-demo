@@ -1,0 +1,29 @@
+<h3>Clients Import Form</h3>
+
+<p>Upload file with clients data in JSON format</p>
+
+<div class="col-md-12">
+  <form ng-submit="$ctrl.save()" id="form" name="$ctrl.form" novalidate class="form-horizontal">
+    <div class="form-group" fh-error-for="$ctrl.form.file">
+
+      <label class="field prepend-icon file file-fw">
+
+        <input type="file" class="form-control" name="file" ng-model="$ctrl.data.file"
+               ngf-select accept="text/*" ngf-max-size="1MB" ngf-model-invalid="$ctrl.data.error">
+
+        <ng-messages for="$ctrl.form.file.$error">
+          <ng-message when="required">You must select a file first</ng-message>
+          <ng-message when="maxSize">File too large {{$ctrl.data.error.size / 1000000|number:1}}MB: max 1MB
+          </ng-message>
+        </ng-messages>
+
+      </label>
+
+    </div>
+
+    <div class="row">
+      <button class="btn btn-primary">Import</button>
+    </div>
+
+  </form>
+</div>

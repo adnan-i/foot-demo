@@ -4,9 +4,10 @@
 const Path = require('path');
 
 module.exports = {
+    devtool: 'source-map',
     watch: true,
     context: Path.join(__dirname, 'client'),
-    entry: './src/app.module.js',
+    entry: './src/core/index.js',
     output: {
         path: Path.join(__dirname, 'client/dist'),
         filename: 'app.bundle.js',
@@ -21,9 +22,30 @@ module.exports = {
                     { loader: 'babel-loader' },
                 ],
             },
-            { test: /\.html$/, loader: 'html' },
-            { test: /\.css$/, loader: 'style!css' }
+            { test: /\.html$/, loader: 'html-loader' },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            },
+            {
+                test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+            },
+            {
+                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
+            },
+            {
+                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'file-loader'
+            },
+            {
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+            },
         ]
-    },
-    devtool: '#inline-source-map'
+    }
 };
