@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "firstName": "Adnan",
+    "lastName": "Ibrišimbegović",
+    "dob": "1980-05-09",
+    "height": 190,
+    "weight": 115,
+    "gender": "M"
+  }
+]

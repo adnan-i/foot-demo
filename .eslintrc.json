@@ -1,0 +1,62 @@
+{
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "import/no-extraneous-dependencies": "off",
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
+    "arrow-body-style": "off",
+    "comma-dangle": "off",
+    "func-names": "off",
+    "global-require": "off",
+    "import/newline-after-import": "off",
+    "indent": [
+      "error",
+      4,
+      {
+        "SwitchCase": 0,
+        "MemberExpression": 0
+      }
+    ],
+    "max-len": [
+      "warn",
+      120
+    ],
+    "newline-per-chained-call": "error",
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 2,
+        "maxBOF": 0,
+        "maxEOF": 1
+      }
+    ],
+    "no-param-reassign": "warn",
+    "no-underscore-dangle": "off",
+    "no-unused-vars": "warn",
+    "padded-blocks": "off",
+    "prefer-arrow-callback": [
+      "error",
+      {
+        "allowNamedFunctions": true
+      }
+    ],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "allowTemplateLiterals": true,
+        "avoidEscape": true
+      }
+    ]
+  }
+}
