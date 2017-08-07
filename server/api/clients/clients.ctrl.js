@@ -18,16 +18,16 @@ module.exports = class ClientsController {
     static update(req, reply) {
 
         return ClientsService.update(req.params.id, req.payload)
-        .then(() => reply())
+        .then((updatedItem) => reply(updatedItem))
         .catch((err) => {
             reply(err.isBoom ? err : Boom.boomify(err));
         });
 
     }
 
-    static import(req, reply) {
+    static importData(req, reply) {
 
-        return ClientsService.import(req.payload.file)
+        return ClientsService.importData(req.payload.file)
         .then((numberImported) => reply({numberImported}))
         .catch((err) => {
             reply(err.isBoom ? err : Boom.boomify(err));

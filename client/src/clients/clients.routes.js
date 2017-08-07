@@ -23,7 +23,13 @@ export default function routes($stateProvider, $urlRouterProvider) {
         }
     })
     .state('core.clients.index', {
-        url: '/index',
+        url: '/index?{firstName}&{lastName}&{dob}&sortBy&reverse',
+        params: {
+            firstName: {
+                dynamic: true
+            }
+        },
+        reloadOnSearch: false,
         views: {
             'clients': {
                 template: require('./list.html'),
@@ -34,7 +40,7 @@ export default function routes($stateProvider, $urlRouterProvider) {
         },
     })
     .state('core.clients.edit', {
-        url: '/:id/edit',
+        url: '/{id:int}/edit',
         views: {
             'clients': {
                 template: require('./form.html'),

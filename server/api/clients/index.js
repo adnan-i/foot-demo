@@ -40,7 +40,7 @@ exports.register = (server, options, next) => {
     server.route({
         method: 'POST',
         path: '/clients/import',
-        handler: ClientsController.import,
+        handler: ClientsController.importData,
         config: {
             payload: {
                 parse: true,

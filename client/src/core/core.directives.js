@@ -2,8 +2,92 @@
  * Created by Adnan Ibrišimbegović on 06/08/2017.
  */
 
+import _ from 'lodash';
 import angular from 'angular';
 const module = angular.module('core.directives', []);
+
+module.component('fhFilterText', {
+    bindings: {
+        placeholder: '@',
+        colName: '@',
+        model: '='
+    },
+    template: [
+        '<input type="text" ng-model="$ctrl.model" ng-model-options="{ debounce: 500 }"',
+        'placeholder="{{$ctrl.placeholder}}" class="form-control">'
+    ].join(''),
+    controller: function ($stateParams, $state) {
+        'ngInject';
+        const $ctrl = this;
+        let previousVal;
+
+        $ctrl.$onInit = () => {
+            $ctrl.model = $stateParams[$ctrl.colName];
+        };
+
+        function updateStateParams() {
+            const map = {};
+            map[$ctrl.colName] = $ctrl.model;
+            const params = _.assign({}, $stateParams, map);
+            $state.go('.', params, { notify: false });
+        }
+
+        $ctrl.$doCheck = () => {
+            if($ctrl.model !== previousVal){
+                previousVal = $ctrl.model;
+                updateStateParams()
+            }
+        };
+
+    }
+});
+
+module.component('fhSort', {
+    bindings: {
+        colName: '<',
+        label: '<'
+    },
+    require: {
+        ngModelCtrl: 'ngModel'
+    },
+    template: '<a href ng-click="$ctrl.sortBy()" ng-class="{\'bg-warning\': $ctrl.isActiveCol()}">{{$ctrl.label}}</a>',
+    controller: function ($stateParams, $state) {
+        'ngInject';
+        const $ctrl = this;
+
+        $ctrl.$onInit = () => {
+            $ctrl.ngModelCtrl.$setViewValue({
+                sortBy: $stateParams.sortBy,
+                reverse: $stateParams.reverse
+            });
+        };
+
+        function updateStateParams() {
+            const params = _.merge({}, $stateParams, $ctrl.ngModelCtrl.$viewValue);
+            $state.go('.', params, { notify: false });
+        }
+
+        $ctrl.isActiveCol = () => {
+            return $ctrl.ngModelCtrl.$viewValue.sortBy == $ctrl.colName;
+        };
+
+        $ctrl.sortBy = () => {
+            const sort = $ctrl.ngModelCtrl.$viewValue;
+            if (sort.sortBy === $ctrl.colName) {
+                sort.reverse = !sort.reverse;
+
+            } else {
+                sort.sortBy = $ctrl.colName;
+                sort.reverse = false;
+            }
+
+            $ctrl.ngModelCtrl.$setViewValue(sort);
+
+            updateStateParams();
+
+        };
+    }
+});
 
 module.directive('fhErrorFor', ($log) => {
     'ngInject';

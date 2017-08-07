@@ -1,3 +1,44 @@
-<ul>
-  <li ng-repeat="c in $ctrl.clients">{{c.firstName}} {{c.lastName}}</li>
-</ul>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>
+      <fh-sort col-name="'firstName'" label="'Name'" ng-model="$ctrl.sort"></fh-sort>
+    </th>
+    <th>
+      <fh-sort col-name="'lastName'" label="'Last name'" ng-model="$ctrl.sort"></fh-sort>
+    </th>
+    <th>
+      <fh-sort col-name="'dob'" label="'Date of Birth'" ng-model="$ctrl.sort"></fh-sort>
+    </th>
+    <th></th>
+  </tr>
+  <tr>
+    <th>
+      <fh-filter-text model="$ctrl.filters.firstName" col-name="firstName"
+                              placholder="Filter by first name"></fh-filter-text>
+    </th>
+    <th>
+      <fh-filter-text model="$ctrl.filters.lastName" col-name="lastName"
+                              placholder="Filter by last name"></fh-filter-text>
+    </th>
+    <th>
+      <fh-filter-text model="$ctrl.filters.dob" col-name="dob"
+                              placholder="Filter by date of birth"></fh-filter-text>
+    </th>
+    <th class="text-right">
+      <a class="btn btn-sm btn-default" role="button" ng-click="$ctrl.filters = {}">Reset</a>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr
+      ng-repeat="c in $ctrl.clients | filter: $ctrl.filters | orderBy: $ctrl.sort.sortBy : $ctrl.sort.reverse track by c.id">
+    <td>{{::c.firstName}}</td>
+    <td>{{::c.lastName}}</td>
+    <td>{{::c.dob}}</td>
+    <td class="text-right">
+      <a ui-sref="^.edit({id: c.id})" class="btn btn-sm btn-default" role="button">Edit</a>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -72,12 +72,13 @@ module.exports = class ClientsService {
 
             _.merge(item, data);
 
-            return storeContent(content);
+            return storeContent(content)
+            .then(() => item);
         });
 
     }
 
-    static import(data) {
+    static importData(data) {
         return storeContent(data);
 
     }

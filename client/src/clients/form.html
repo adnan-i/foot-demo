@@ -1,1 +1,66 @@
-<h3>Clients Form</h3>
+<h3>Editing client #{{::$ctrl.client.id}}</h3>
+
+<form ng-submit="$ctrl.save()" id="form" name="$ctrl.form" novalidate class="form-horizontal">
+
+  <div class="form-group">
+    <label for="firstName" class="col-sm-3 control-label">First name</label>
+    <div class="col-sm-9">
+      <input type="text" name="firstName" id="firstName" class="form-control"
+             ng-model="$ctrl.client.firstName" autofocus>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="lastName" class="col-sm-3 control-label">Last name</label>
+    <div class="col-sm-9">
+      <input type="text" name="lastName" id="lastName" class="form-control"
+             ng-model="$ctrl.client.lastName" autofocus>
+    </div>
+  </div>
+
+  <div class="form-group" fh-error-for="$ctrl.form.dob">
+    <label for="dob" class="col-sm-3 control-label">Date of birth</label>
+
+    <div class="col-sm-9">
+      <input type="text" name="dob" id="dob" class="form-control"
+             ng-model="$ctrl.client.dob" placeholder="YYYY-MM-DD"
+             ng-pattern="/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/">
+      <ng-messages for="$ctrl.form.dob.$error">
+        <ng-message when="pattern">Date of birth must be in YYYY-MM-DD format</ng-message>
+      </ng-messages>
+    </div>
+  </div>
+
+  <div class="form-group" fh-error-for="$ctrl.form.height">
+    <label for="height" class="col-sm-3 control-label">Height</label>
+
+    <div class="col-sm-9">
+      <input type="number" name="height" id="height" class="form-control"
+             ng-model="$ctrl.client.height" placeholder="height in cm"
+             min="1" max="500">
+      <ng-messages for="$ctrl.form.height.$error">
+        <ng-message when="min">Minimum height is 1 cm</ng-message>
+        <ng-message when="max">Maximum height is 500 cm</ng-message>
+      </ng-messages>
+    </div>
+  </div>
+
+  <div class="form-group" fh-error-for="$ctrl.form.weight">
+    <label for="weight" class="col-sm-3 control-label">Weight</label>
+
+    <div class="col-sm-9">
+      <input type="number" name="weight" id="weight" class="form-control"
+             ng-model="$ctrl.client.weight" placeholder="weight in kg"
+             min="1" max="500">
+      <ng-messages for="$ctrl.form.weight.$error">
+        <ng-message when="min">Minimum weight is 1 kg</ng-message>
+        <ng-message when="max">Maximum weight is 500 kg</ng-message>
+      </ng-messages>
+    </div>
+  </div>
+
+  <div class="row text-right">
+    <button class="btn btn-primary">Submit</button>
+  </div>
+
+</form>
