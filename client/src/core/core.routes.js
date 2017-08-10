@@ -9,10 +9,6 @@ export default function routes($urlRouterProvider, $stateProvider) {
         views: {
             'root': {
                 template: require('./core.html'),
-                controller: function(){
-                    this.list = [1,2];
-                },
-                controllerAs: '$ctrl'
             },
 
         },

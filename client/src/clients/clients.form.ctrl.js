@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export default function ClientsFromCtrl(clients, $stateParams, $q, ClientService, NotifierService, $state) {
+export default function ClientsFormCtrl(clients, $stateParams, $q, ClientService, NotifierService, $state) {
     'ngInject';
 
     const $ctrl = this;
@@ -15,7 +15,7 @@ export default function ClientsFromCtrl(clients, $stateParams, $q, ClientService
                 throw new Error('Form is invalid');
             }
 
-            return ClientService.update({id: $ctrl.client.id}, $ctrl.client).$promise;
+            return ClientService.update({id: $ctrl.client.id}, $ctrl.client);
         })
         .then(() => NotifierService.info('Client updated'))
         .then(() => $state.reload())

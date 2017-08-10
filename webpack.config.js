@@ -2,16 +2,22 @@
  * Created by Adnan Ibrišimbegović on 04/08/2017.
  */
 const Path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-    devtool: 'source-map',
-    watch: true,
+    devtool: 'inline-source-map',
+    watch: false,
     context: Path.join(__dirname, 'client'),
     entry: './src/app.js',
     output: {
         path: Path.join(__dirname, 'client/dist'),
         filename: 'app.bundle.js',
     },
+    plugins: [
+        new webpack.ProvidePlugin({
+            'window.jQuery': 'jquery'
+        }),
+    ],
     module: {
         loaders: [
             {
@@ -22,7 +28,10 @@ module.exports = {
                     { loader: 'babel-loader' },
                 ],
             },
-            { test: /\.html$/, loader: 'html-loader' },
+            {
+                test: /\.html$/,
+                loader: 'html-loader'
+            },
             {
                 test: /\.css$/,
                 use: [

@@ -7,6 +7,7 @@
     "build": "webpack",
     "start": "nodemon server.js",
     "test": "NODE_ENV=test mocha --bail --check-leaks --recursive",
+    "test:web": "NODE_ENV=test npm run build && karma start",
     "test-cover": "lab -c -r html -o ./test/artifacts/coverage.html && open ./test/artifacts/coverage.html"
   },
   "repository": {
@@ -40,12 +41,14 @@
     "inert": "^4.2.1",
     "jade": "1.x.x",
     "joi": "^10.6.0",
+    "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "ng-file-upload": "^12.2.13",
     "vision": "4.x.x",
     "visionary": "6.x.x"
   },
   "devDependencies": {
+    "angular-mocks": "^1.6.5",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-preset-es2015": "^6.24.1",
@@ -57,9 +60,18 @@
     "file-loader": "^0.11.2",
     "html-loader": "^0.5.0",
     "inject-then": "^2.0.9",
+    "karma": "^1.7.0",
+    "karma-chai": "^0.1.0",
+    "karma-chai-plugins": "^0.9.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-mocha": "^1.3.0",
+    "karma-sinon": "^1.0.5",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.4",
     "mocha": "^3.5.0",
     "ng-annotate-loader": "^0.6.1",
     "nodemon": "1.x.x",
+    "sinon": "^3.1.0",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "webpack": "^3.4.1"

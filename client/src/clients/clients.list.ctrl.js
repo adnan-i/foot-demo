@@ -7,8 +7,4 @@ export default function ClientsListCtrl($scope, clients) {
     $ctrl.sort = {};
     $ctrl.filters = {};
 
-    $scope.$watch(() => $ctrl.filters, () => {
-        console.log('filters are now', $ctrl.filters);
-    }, true);
-
 }

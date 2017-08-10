@@ -1,0 +1,18 @@
+{
+  "env": {
+    "browser": true,
+    "protractor": true,
+    "mocha": true
+  },
+  "globals": {
+    "angular": true,
+    "inject": true,
+    "sinon": true,
+    "expect": true,
+    "chance": true
+  },
+  "rules": {
+    "no-unused-expressions": 0,
+    "prefer-arrow-callback": 1
+  }
+}
