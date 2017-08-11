@@ -1,4 +1,3 @@
-
 describe('app.spec', () => {
     const moduleName = 'fh';
 

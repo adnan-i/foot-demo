@@ -12,7 +12,7 @@ exports.register = function (server, options, next) {
         path: '/dist/{param*}',
         handler: {
             directory: {
-                path: Path.join(__dirname, '../../client/dist'),
+                path: Path.join(__dirname, '../../frontend/dist'),
                 redirectToSlash: true,
                 index: false
             }

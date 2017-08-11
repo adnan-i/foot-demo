@@ -1,11 +1,12 @@
 import sinon from 'sinon';
-import ClientsListCtrl from '../../../client/src/clients/clients.list.ctrl.js';
+import ClientsListCtrl from '../../src/clients/clients.list.ctrl.js';
 
 describe('clients/clients.list.ctrl.spec', () => {
 
     let box;
     let createController;
     let $scope;
+    let $compile;
     const clients = [{
         id: 1
     }];

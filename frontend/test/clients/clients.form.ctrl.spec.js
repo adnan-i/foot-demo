@@ -1,7 +1,7 @@
 import sinon from 'sinon';
-import ClientsImportCtrl from '../../../client/src/clients/clients.import.ctrl.js';
+import ClientsFormCtrl from '../../src/clients/clients.form.ctrl.js';
 
-describe('clients/clients.import.ctrl.spec', () => {
+describe('clients/clients.form.ctrl.spec', () => {
 
     let box;
     let createController;
@@ -12,7 +12,10 @@ describe('clients/clients.import.ctrl.spec', () => {
     let $compile;
     let $scope;
     let NotifierService;
-    const template = require('../../../client/src/clients/import.html');
+    const clients = [{
+        id: 1
+    }];
+    const template = require('../../src/clients/form.html');
 
     beforeEach(angular.mock.module('fh'));
 
@@ -31,8 +34,9 @@ describe('clients/clients.import.ctrl.spec', () => {
         NotifierService = _NotifierService_;
 
         createController = () => {
-            return $controller(ClientsImportCtrl, {
+            return $controller(ClientsFormCtrl, {
                 $scope,
+                clients,
                 $stateParams,
                 ClientService
             });
@@ -44,9 +48,10 @@ describe('clients/clients.import.ctrl.spec', () => {
         expect(ctrl).to.exist;
     });
 
-    it('should assign this.data with {}', () => {
+    it('should assign this.client with the entry from the clients injection, using $stateParams.id', () => {
+        $stateParams.id = 1;
         const ctrl = createController();
-        expect(ctrl.data).to.deep.equal({});
+        expect(ctrl.client).to.deep.equal(clients[0]);
     });
 
     describe('method save ', () => {
@@ -58,7 +63,7 @@ describe('clients/clients.import.ctrl.spec', () => {
 
         it('should toast an error if form is $invalid', () => {
 
-            const uploadStub = box.stub(ClientService, 'upload').callsFake(() => $q.resolve());
+            const updateStub = box.stub(ClientService, 'update').callsFake(() => $q.resolve());
 
             const stateStub = box.stub($state, 'reload');
             const NotifierServiceStub = box.spy(NotifierService, 'error');
@@ -70,12 +75,14 @@ describe('clients/clients.import.ctrl.spec', () => {
             $scope.$apply();
 
             expect(ctrl.form, '.form exists').to.exist;
+            expect(ctrl.form.$invalid, 'form.$invalid').to.be.false;
+            ctrl.form.dob.$setViewValue('a');
             expect(ctrl.form.$invalid, 'form.$invalid').to.be.true;
 
             ctrl.save();
             $scope.$digest();
 
-            expect(uploadStub.called, 'uploadStub.called').to.be.false;
+            expect(updateStub.called, 'updateStub.called').to.be.false;
             expect(stateStub.called, 'stateStub.called').to.be.false;
             const error = NotifierServiceStub.args[0][0];
             expect(error instanceof Error).to.be.true;
@@ -83,11 +90,11 @@ describe('clients/clients.import.ctrl.spec', () => {
 
         });
 
-        it('should upload the file', () => {
+        it('should update the client ', () => {
 
-            const mockFile = { file: [{ name: 'file.json', size: 1018, type: 'application/json' }] };
+            $stateParams.id = 1;
 
-            const uploadStub = box.stub(ClientService, 'upload').callsFake(() => $q.resolve());
+            const updateStub = box.stub(ClientService, 'update').callsFake(() => $q.resolve());
             const stateStub = box.stub($state, 'reload');
             const NotifierServiceErrorStub = box.spy(NotifierService, 'error');
             const NotifierServiceInfoStub = box.spy(NotifierService, 'info');
@@ -95,23 +102,24 @@ describe('clients/clients.import.ctrl.spec', () => {
             const ctrl = createController();
             $scope.$ctrl = ctrl;
 
+            expect(ctrl.client).to.exist;
+            expect(ctrl.client.id).to.exist;
+
             $compile(template)($scope);
             $scope.$apply();
 
             expect(ctrl.form, '.form exists').to.exist;
-            expect(ctrl.form.$invalid, 'form.$invalid').to.be.true;
-            ctrl.form.file.$setViewValue(mockFile);
             expect(ctrl.form.$invalid, 'form.$invalid').to.be.false;
 
             ctrl.save();
             $scope.$digest();
 
-            expect(uploadStub.called, 'uploadStub.called').to.be.true;
+            expect(updateStub.called, 'updateStub.called').to.be.true;
             expect(stateStub.called, 'stateStub.called').to.be.true;
             expect(NotifierServiceErrorStub.called).to.be.false;
             expect(NotifierServiceInfoStub.called).to.be.true;
             const message = NotifierServiceInfoStub.args[0][0];
-            expect(message).to.equal('File imported');
+            expect(message).to.equal('Client updated');
 
         });
 

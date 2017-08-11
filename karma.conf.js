@@ -15,8 +15,8 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            './client/src/app.js',
-            './test/client/index.js'
+            './frontend/src/app.js',
+            './frontend/test/index.js'
         ],
 
 
@@ -27,8 +27,8 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            './client/src/app.js': ['webpack'],
-            './test/client/index.js': ['webpack', 'sourcemap']
+            './frontend/src/app.js': ['webpack'],
+            './frontend/test/index.js': ['webpack', 'sourcemap']
         },
 
         webpack: require('./webpack.config.js'),
@@ -39,7 +39,7 @@ module.exports = function (config) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+        reporters: ['spec'],
 
         browserConsoleLogOptions: {
             level: 'log',
@@ -55,7 +55,6 @@ module.exports = function (config) {
 
 
         // level of logging
-        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
         logLevel: config.LOG_INFO,
 
 

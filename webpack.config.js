@@ -7,13 +7,14 @@ const webpack = require('webpack');
 module.exports = {
     devtool: 'inline-source-map',
     watch: false,
-    context: Path.join(__dirname, 'client'),
+    context: Path.join(__dirname, 'frontend'),
     entry: './src/app.js',
     output: {
-        path: Path.join(__dirname, 'client/dist'),
+        path: Path.join(__dirname, 'frontend/dist'),
         filename: 'app.bundle.js',
     },
     plugins: [
+        // Enables angular to detect jQuery on load
         new webpack.ProvidePlugin({
             'window.jQuery': 'jquery'
         }),

@@ -61,4 +61,4 @@ typings/
 test/artifacts/*
 data/
 .idea
-client/dist/
+frontend/dist/

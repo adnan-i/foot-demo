@@ -24,11 +24,6 @@ export default function routes($stateProvider, $urlRouterProvider) {
     })
     .state('core.clients.index', {
         url: '/index?{firstName}&{lastName}&{dob}&sortBy&reverse',
-        params: {
-            firstName: {
-                dynamic: true
-            }
-        },
         reloadOnSearch: false,
         views: {
             'clients': {
