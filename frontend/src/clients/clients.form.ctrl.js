@@ -1,11 +1,11 @@
-import _ from 'lodash';
+import {find} from 'lodash';
 
 export default function ClientsFormCtrl(clients, $stateParams, $q, ClientService, NotifierService, $state) {
     'ngInject';
 
     const $ctrl = this;
 
-    $ctrl.client = _.find(clients, {id: $stateParams.id});
+    $ctrl.client = find(clients, {id: $stateParams.id});
 
     $ctrl.save = () => {
 

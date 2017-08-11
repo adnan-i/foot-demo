@@ -2,7 +2,7 @@
  * Created by Adnan Ibrišimbegović on 06/08/2017.
  */
 
-import _ from 'lodash';
+import {assign, merge} from 'lodash';
 import angular from 'angular';
 const module = angular.module('core.directives', []);
 
@@ -28,12 +28,12 @@ module.component('fhFilterText', {
         function updateStateParams() {
             const map = {};
             map[$ctrl.colName] = $ctrl.model;
-            const params = _.assign({}, $stateParams, map);
+            const params = assign({}, $stateParams, map);
             $state.go('.', params, { notify: false });
         }
 
         $ctrl.$doCheck = () => {
-            if($ctrl.model !== previousVal){
+            if ($ctrl.model !== previousVal) {
                 previousVal = $ctrl.model;
                 updateStateParams()
             }
@@ -63,7 +63,7 @@ module.component('fhSort', {
         };
 
         function updateStateParams() {
-            const params = _.merge({}, $stateParams, $ctrl.ngModelCtrl.$viewValue);
+            const params = merge({}, $stateParams, $ctrl.ngModelCtrl.$viewValue);
             $state.go('.', params, { notify: false });
         }
 
