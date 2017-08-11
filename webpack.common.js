@@ -5,7 +5,7 @@ const Path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-    devtool: 'eval-cheap-module-source-map',
+    devtool: 'cheap-module-eval-source-map',
     watch: false,
     context: Path.join(__dirname, 'frontend'),
     entry: './src/app.js',

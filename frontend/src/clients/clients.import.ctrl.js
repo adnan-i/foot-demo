@@ -1,5 +1,5 @@
 
-export default function ClientsImportCtrl(ClientService, NotifierService, $q, $state) {
+export default function ClientsImportCtrl(ClientService, NotifierService, $q, $state, $window) {
     'ngInject';
 
     const $ctrl = this;
@@ -17,6 +17,7 @@ export default function ClientsImportCtrl(ClientService, NotifierService, $q, $s
         })
         .then(() => NotifierService.info('File imported'))
         .then(() => $state.reload())
+        .then(() => $window.history.back())
         .catch((err) => {
             NotifierService.error(err || 'Upload failed')
         });

@@ -12,6 +12,7 @@ describe('clients/clients.import.ctrl.spec', () => {
     let $compile;
     let $scope;
     let NotifierService;
+    let $window;
     const template = require('../../src/clients/import.html');
 
     beforeEach(angular.mock.module('fh'));
@@ -20,7 +21,7 @@ describe('clients/clients.import.ctrl.spec', () => {
     afterEach(() => { box.restore(); });
 
     beforeEach(inject((_$controller_, $rootScope, _$stateParams_, _ClientService_, _$q_, _$state_, _$compile_,
-                       _NotifierService_) => {
+                       _NotifierService_, _$window_) => {
         const $controller = _$controller_;
         $scope = $rootScope.$new();
         $stateParams = _$stateParams_;
@@ -29,6 +30,7 @@ describe('clients/clients.import.ctrl.spec', () => {
         $state = _$state_;
         $compile = _$compile_;
         NotifierService = _NotifierService_;
+        $window = _$window_;
 
         createController = () => {
             return $controller(ClientsImportCtrl, {
@@ -62,6 +64,7 @@ describe('clients/clients.import.ctrl.spec', () => {
 
             const stateStub = box.stub($state, 'reload');
             const NotifierServiceStub = box.spy(NotifierService, 'error');
+            const historyBackStub = box.stub($window.history, 'back');
 
             const ctrl = createController();
             $scope.$ctrl = ctrl;
@@ -91,6 +94,7 @@ describe('clients/clients.import.ctrl.spec', () => {
             const stateStub = box.stub($state, 'reload');
             const NotifierServiceErrorStub = box.spy(NotifierService, 'error');
             const NotifierServiceInfoStub = box.spy(NotifierService, 'info');
+            const historyBackStub = box.stub($window.history, 'back');
 
             const ctrl = createController();
             $scope.$ctrl = ctrl;
@@ -110,6 +114,7 @@ describe('clients/clients.import.ctrl.spec', () => {
             expect(stateStub.called, 'stateStub.called').to.be.true;
             expect(NotifierServiceErrorStub.called).to.be.false;
             expect(NotifierServiceInfoStub.called).to.be.true;
+            expect(historyBackStub.called).to.be.true;
             const message = NotifierServiceInfoStub.args[0][0];
             expect(message).to.equal('File imported');
 
