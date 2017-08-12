@@ -9,7 +9,7 @@ module.exports = Merge(CommonConfig, {
     watch: false,
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': `'prod'`
+            'process.env.NODE_ENV': `'production'`
         }),
         new webpack.optimize.UglifyJsPlugin({
             beautify: false,
