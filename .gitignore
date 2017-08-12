@@ -61,4 +61,5 @@ typings/
 test/artifacts/*
 data/
 .idea
-frontend/dist/
+frontend/dist/*
+!frontend/dist/sample.json
