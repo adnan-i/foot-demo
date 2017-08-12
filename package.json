@@ -8,7 +8,8 @@
     "web:build:prod": "NODE_ENV=prod webpack --config webpack.prod.js --progress --profile --colors",
     "web:test": "NODE_ENV=test karma start",
     "start": "nodemon server.js",
-    "test": "NODE_ENV=test mocha --bail --check-leaks --recursive"
+    "test": "NODE_ENV=test mocha --bail --check-leaks --recursive",
+    "postinstall": "npm run web:build:prod"
   },
   "repository": {
     "type": "git",
