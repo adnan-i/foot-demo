@@ -12,7 +12,7 @@ const config = {
         web: {
             $filter: 'env',
             test: 9090,
-            $default: 8080
+            $default: process.env.PORT || 8080
         }
     },
     apiPrefix: '/api',
