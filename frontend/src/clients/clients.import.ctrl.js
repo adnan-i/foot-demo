@@ -16,7 +16,9 @@ export default function ClientsImportCtrl(ClientService, NotifierService, $q, $s
             return ClientService.upload($ctrl.data.file);
         })
         .then(() => NotifierService.info('File imported'))
-        .then(() => $state.reload())
+        .then(() => {
+            $state.reload()
+        })
         .then(() => $window.history.back())
         .catch((err) => {
             NotifierService.error(err || 'Upload failed')

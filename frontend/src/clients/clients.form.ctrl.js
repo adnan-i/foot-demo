@@ -18,7 +18,9 @@ export default function ClientsFormCtrl(clients, $stateParams, $q, ClientService
             return ClientService.update({id: $ctrl.client.id}, $ctrl.client);
         })
         .then(() => NotifierService.info('Client updated'))
-        .then(() => $state.reload())
+        .then(() => {
+            $state.reload();
+        })
         .catch((err) => {
             NotifierService.error(err || 'Could not update')
         });
