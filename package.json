@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/adnan-i/foot-demo",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=10.15"
   },
   "dependencies": {
     "@cgross/angular-notify": "^2.5.1",
