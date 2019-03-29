@@ -8,8 +8,9 @@
     "web:build:prod": "NODE_ENV=production webpack --config webpack.prod.js --progress --profile --colors",
     "web:test": "NODE_ENV=test karma start",
     "start": "nodemon server.js",
-    "test": "NODE_ENV=test mocha --bail --check-leaks --recursive",
-    "postinstall": "npm run web:build:prod"
+    "test": "NODE_ENV=test nyc mocha --bail --check-leaks --recursive",
+    "postinstall": "npm run web:build:prod",
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "repository": {
     "type": "git",
@@ -64,6 +65,7 @@
   "devDependencies": {
     "angular-mocks": "^1.6.5",
     "chai": "^4.1.1",
+    "codecov": "^3.2.0",
     "eslint": "^4.3.0",
     "eslint-config-airbnb-base": "^11.3.1",
     "eslint-plugin-import": "^2.16.0",
@@ -79,6 +81,7 @@
     "karma-webpack": "^2.0.4",
     "mocha": "^3.5.0",
     "nodemon": "1.x.x",
+    "nyc": "^13.3.0",
     "sinon": "^3.1.0"
   }
 }
