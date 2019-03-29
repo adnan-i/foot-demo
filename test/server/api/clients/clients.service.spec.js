@@ -14,11 +14,8 @@ describe('ClientsService', () => {
         let fixtureContent;
 
         beforeEach(() => {
-            return Promise.resolve()
-            .then(() => {
-                const file = fs.readFileSync(dataPath);
-                fixtureContent = JSON.parse(file);
-            });
+            const file = fs.readFileSync(dataPath);
+            fixtureContent = JSON.parse(file);
         });
 
         it('should return the content of filePath in JSON format', () => {
@@ -64,15 +61,15 @@ describe('ClientsService', () => {
             expect(fixtureContent).to.exist;
             expect(fixtureContent).to.be.an('array');
             const id = 2;
-            const item = _.find(fixtureContent, {id});
+            const item = _.find(fixtureContent, { id });
             expect(item).to.be.an('object');
 
             const newHeight = item.height + 1;
-            return ClientsService.update(item.id, {height: newHeight})
+            return ClientsService.update(item.id, { height: newHeight })
             .then(() => ClientsService.findAll())
             .then((content) => {
                 expect(content).to.be.an('array');
-                const newItem = _.find(content, {id});
+                const newItem = _.find(content, { id });
                 expect(newItem).to.exist;
                 expect(newItem.height).to.equal(newHeight);
             });
